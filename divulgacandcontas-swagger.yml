@@ -9,11 +9,66 @@ info:
 host: "divulgacandcontas.tse.jus.br"
 basePath: "/divulga/rest/v1"
 tags:
+- name: eleicoesOrdinarias
+  description: "Lista de eleições disponíveis para consulta"
 - name: eleicoes2020
   description: "Eleições municipais de 2020"
 schemes:
 - https
 paths:
+  /eleicao/ordinarias:
+    get:
+      tags:
+      - "eleicoesOrdinarias"
+      summary: "Eleições disponíveis"
+      description: "Lista eleições, por ano, disponível para consulta"
+      operationId: listaEleicoesOrdinarias
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: array
+            items:
+              type: object
+              properties: 
+                id: 
+                  type: integer
+                siglaUF: 
+                  type: string
+                  format: nullable
+                localidadeSgUe: 
+                  type: string
+                  format: nullable
+                ano: 
+                  type: integer
+                codigo: 
+                  type: string
+                  format: nullable
+                nomeEleicao: 
+                  type: string         
+                tipoEleicao:
+                  type: string
+                turno:
+                  type: string
+                  format: nullable
+                tipoAbragencia:
+                  type: string
+                dataEleicao:
+                  type: string
+                codSituacaoEleitoral:
+                  type: string
+                  format: nullable
+                descricaoSituacaoEleicao:
+                  type: string
+                  format: nullable
+                descricaoEleicao:
+                  type: string
+              
+        "404":
+          description: "não encontrado"
+
   /eleicao/listar/municipios/2030402020/{municipio}/cargos:
     get:
       tags:
