@@ -16,3 +16,7 @@ https://divulgacandcontas.tse.jus.br/divulga/rest/v1/candidatura/buscar/2020/351
 # Informações sobre as eleições disponíveis
 https://divulgacandcontas.tse.jus.br/divulga/rest/v1/eleicao/ordinarias
 ###
+
+# Informações sobre os anos eleitorais disponíveis
+https://divulgacandcontas.tse.jus.br/divulga/rest/v1/eleicao/anos-eleitorais
+###
