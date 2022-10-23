@@ -17,8 +17,8 @@ oficial para ajudar a quem mais esteja tentando utilizá-la.
 ## Como usar
 
 Para usar a API, consulte a documentação no formato
-[Open API 2.0](https://swagger.io/specification/v2/). Para mais informações
-sobre o padrão Open API, consulte o site [swagger.io](https://swagger.io/).
+[OpenAPI 3.0.1](https://spec.openapis.org/oas/v3.0.1). Para mais informações
+sobre o padrão Open API, consulte o site [openapis.org]](https://www.openapis.org/).
 
 A documentação está no arquivo
 [divulgacandcontas-swagger.yaml](divulgacandcontas-swagger.yaml). Além disso,
