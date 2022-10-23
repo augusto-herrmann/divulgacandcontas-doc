@@ -34,40 +34,7 @@ paths:
               schema:
                 type: array
                 items:
-                  type: object
-                  properties:
-                    id:
-                      type: integer
-                    siglaUF:
-                      type: string
-                      format: nullable
-                    localidadeSgUe:
-                      type: string
-                      format: nullable
-                    ano:
-                      type: integer
-                    codigo:
-                      type: string
-                      format: nullable
-                    nomeEleicao:
-                      type: string
-                    tipoEleicao:
-                      type: string
-                    turno:
-                      type: string
-                      format: nullable
-                    tipoAbragencia:
-                      type: string
-                    dataEleicao:
-                      type: string
-                    codSituacaoEleitoral:
-                      type: string
-                      format: nullable
-                    descricaoSituacaoEleicao:
-                      type: string
-                      format: nullable
-                    descricaoEleicao:
-                      type: string
+                  $ref: "#/components/schemas/Eleição"
         404:
           description: não encontrado
           content: {}
@@ -999,3 +966,38 @@ components:
         contagem:
           type: integer
           format: int32
+    Eleição:
+      type: object
+      properties:
+        id:
+          type: integer
+        siglaUF:
+          type: string
+          format: nullable
+        localidadeSgUe:
+          type: string
+          format: nullable
+        ano:
+          type: integer
+        codigo:
+          type: string
+          format: nullable
+        nomeEleicao:
+          type: string
+        tipoEleicao:
+          type: string
+        turno:
+          type: string
+          format: nullable
+        tipoAbragencia:
+          type: string
+        dataEleicao:
+          type: string
+        codSituacaoEleitoral:
+          type: string
+          format: nullable
+        descricaoSituacaoEleicao:
+          type: string
+          format: nullable
+        descricaoEleicao:
+              type: string
