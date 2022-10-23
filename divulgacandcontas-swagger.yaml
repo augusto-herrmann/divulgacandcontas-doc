@@ -19,6 +19,25 @@ tags:
 - name: eleicoes
   description: Lista de eleições disponíveis para consulta
 paths:
+  /eleicao/anos-eleitorais:
+    get:
+      tags:
+        - eleicoes
+      summary: Anos eleitorais
+      description: Lista de anos eleitorais
+      operationId: listaEleicoesOrdinarias
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: integer
+        404:
+          description: não encontrado
+          content: {}
   /eleicao/ordinarias:
     get:
       tags:

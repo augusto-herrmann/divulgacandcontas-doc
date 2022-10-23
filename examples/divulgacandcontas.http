@@ -12,3 +12,11 @@ http://divulgacandcontas.tse.jus.br/divulga/rest/v1/candidatura/listar/2020/3515
 # Informações sobre um candidato específico
 https://divulgacandcontas.tse.jus.br/divulga/rest/v1/candidatura/buscar/2020/35157/2030402020/candidato/50000867342
 ###
+
+# Informações sobre as eleições disponíveis
+https://divulgacandcontas.tse.jus.br/divulga/rest/v1/eleicao/ordinarias
+###
+
+# Informações sobre os anos eleitorais disponíveis
+https://divulgacandcontas.tse.jus.br/divulga/rest/v1/eleicao/anos-eleitorais
+###
