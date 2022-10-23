@@ -14,17 +14,77 @@ externalDocs:
 servers:
 - url: https://divulgacandcontas.tse.jus.br/divulga/rest/v1
 tags:
-- name: eleicoes2020
+- name: eleicoes-municipais
   description: Eleições municipais de 2020
+- name: eleicoes
+  description: Lista de eleições disponíveis para consulta
 paths:
-  /eleicao/listar/municipios/2030402020/{municipio}/cargos:
+  /eleicao/ordinarias:
     get:
       tags:
-      - eleicoes2020
+        - eleicoes
+      summary: Eleições disponíveis
+      description: Lista eleições, por ano, disponível para consulta
+      operationId: listaEleicoesOrdinarias
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    siglaUF:
+                      type: string
+                      format: nullable
+                    localidadeSgUe:
+                      type: string
+                      format: nullable
+                    ano:
+                      type: integer
+                    codigo:
+                      type: string
+                      format: nullable
+                    nomeEleicao:
+                      type: string
+                    tipoEleicao:
+                      type: string
+                    turno:
+                      type: string
+                      format: nullable
+                    tipoAbragencia:
+                      type: string
+                    dataEleicao:
+                      type: string
+                    codSituacaoEleitoral:
+                      type: string
+                      format: nullable
+                    descricaoSituacaoEleicao:
+                      type: string
+                      format: nullable
+                    descricaoEleicao:
+                      type: string
+        404:
+          description: não encontrado
+          content: {}
+  /eleicao/listar/municipios/{eleicao}/{municipio}/cargos:
+    get:
+      tags:
+      - eleicoes-municipais
       summary: Cargos no município
       description: Lista de cargos em disputa no município
       operationId: listaCargos
       parameters:
+      - name: eleicao
+        in: path
+        description: Id da eleição
+        required: true
+        schema:
+          type: integer
       - name: municipio
         in: path
         description: Código do município
@@ -71,20 +131,38 @@ paths:
         404:
           description: não encontrado
           content: {}
-  /prestador/consulta/2030402020/2020/{municipio}/{cargo}/90/90/{candidato}:
+  /prestador/consulta/{eleicao}/{ano}/{municipio}/{cargo}/90/90/{candidato}:
     get:
       tags:
-      - eleicoes2020
+      - eleicoes-municipais
       summary: Prestador
       description: Informações sobre o prestador de contas
       operationId: consultaPrestador
       parameters:
+      - name: eleicao
+        in: path
+        description: >
+          Id da eleição
+
+          (ex.: 2030402020 para as eleições municipais de 2020)
+        required: true
+        schema:
+          type: integer
+        example: 2030402020
+      - name: ano
+        in: path
+        description: Ano
+        required: true
+        schema:
+          type: integer
+        example: 2020
       - name: municipio
         in: path
         description: Código do município
         required: true
         schema:
           type: integer
+        example: 35157
       - name: cargo
         in: path
         description: Código do cargo
@@ -443,21 +521,39 @@ paths:
         404:
           description: não encontrado
           content: {}
-  /candidatura/listar/2020/{municipio}/2030402020/{cargo}/candidatos:
+  /candidatura/listar/{ano}/{municipio}/{eleicao}/{cargo}/candidatos:
     get:
       tags:
-      - eleicoes2020
+      - eleicoes-municipais
       summary: Candidatos no município
       description: Lista de todos os candidatos nas eleições de 2020 no município
         especificado
       operationId: listaCandidatosPorMunicipio
       parameters:
+      - name: eleicao
+        in: path
+        description: >
+          Id da eleição
+
+          (ex.: 2030402020 para as eleições municipais de 2020)
+        required: true
+        schema:
+          type: integer
+        example: 2030402020
+      - name: ano
+        in: path
+        description: Ano
+        required: true
+        schema:
+          type: integer
+        example: 2020
       - name: municipio
         in: path
         description: Código do município
         required: true
         schema:
           type: integer
+        example: 35157
       - name: cargo
         in: path
         description: Código do cargo
@@ -485,20 +581,38 @@ paths:
         404:
           description: não encontrado
           content: {}
-  /candidatura/buscar/2020/{municipio}/2030402020/candidato/{candidato}:
+  /candidatura/buscar/{ano}/{municipio}/{eleicao}/candidato/{candidato}:
     get:
       tags:
-      - eleicoes2020
+      - eleicoes-municipais
       summary: Candidato
       description: Informações sobre o candidato
       operationId: consultaCandidato
       parameters:
+      - name: eleicao
+        in: path
+        description: >
+          Id da eleição
+
+          (ex.: 2030402020 para as eleições municipais de 2020)
+        required: true
+        schema:
+          type: integer
+        example: 2030402020
+      - name: ano
+        in: path
+        description: Ano
+        required: true
+        schema:
+          type: integer
+        example: 2020
       - name: municipio
         in: path
         description: Código do município
         required: true
         schema:
           type: integer
+        example: 35157
       - name: candidato
         in: path
         description: Código do candidato
