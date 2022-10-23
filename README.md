@@ -21,7 +21,7 @@ Para usar a API, consulte a documentação no formato
 sobre o padrão Open API, consulte o site [swagger.io](https://swagger.io/).
 
 A documentação está no arquivo
-[divulgacandcontas-swagger.yml](divulgacandcontas-swagger.yml). Além disso,
+[divulgacandcontas-swagger.yaml](divulgacandcontas-swagger.yaml). Além disso,
 o arquivo [divulgacandcontas.http](divulgacandcontas.http) possui alguns
 exemplos de consultas prontas para uso.
 
@@ -40,7 +40,7 @@ exemplos de consultas prontas para uso.
 ### Experimentando com chamadas à API
 
 Para experimentar com a definição da API no formato Open API, copie o conteúdo
-do arquivo [divulgacandcontas-swagger.yml](divulgacandcontas-swagger.yml) e
+do arquivo [divulgacandcontas-swagger.yaml](divulgacandcontas-swagger.yaml) e
 cole-o em [editor.swagger.io](https://editor.swagger.io/). Será criada uma
 interface web para que você possa preencher os parâmetros e experimentar com
 as consultas.
