@@ -1,878 +1,887 @@
-swagger: "2.0"
+openapi: 3.0.1
 info:
-  description: "Documentação não oficial da API do sistema de divulgação de candidaturas e contas ([DivulgaCandContas](http://divulgacandcontas.tse.jus.br/divulga/)) do Tribunal Superior Eleitoral."
-  version: "1.0.0"
-  title: "DivulgaCandContas"
-  termsOfService: "http://www.tse.jus.br/transparencia/politica-de-privacidade-e-termos-de-uso"
+  title: DivulgaCandContas
+  description: Documentação não oficial da API do sistema de divulgação de candidaturas
+    e contas ([DivulgaCandContas](http://divulgacandcontas.tse.jus.br/divulga/)) do
+    Tribunal Superior Eleitoral.
+  termsOfService: http://www.tse.jus.br/transparencia/politica-de-privacidade-e-termos-de-uso
   contact:
-    url: "http://divulgacandcontas.tse.jus.br/divulga/"
-host: "divulgacandcontas.tse.jus.br"
-basePath: "/divulga/rest/v1"
+    url: http://divulgacandcontas.tse.jus.br/divulga/
+  version: 1.0.0
+externalDocs:
+  description: Repositório de dados eleitorais
+  url: https://www.tse.jus.br/eleicoes/estatisticas/repositorio-de-dados-eleitorais-1/repositorio-de-dados-eleitorais
+servers:
+- url: https://divulgacandcontas.tse.jus.br/divulga/rest/v1
 tags:
 - name: eleicoes2020
-  description: "Eleições municipais de 2020"
-schemes:
-- https
+  description: Eleições municipais de 2020
 paths:
   /eleicao/listar/municipios/2030402020/{municipio}/cargos:
     get:
       tags:
-      - "eleicoes2020"
-      summary: "Cargos no município"
-      description: "Lista de cargos em disputa no município"
+      - eleicoes2020
+      summary: Cargos no município
+      description: Lista de cargos em disputa no município
       operationId: listaCargos
-      produces:
-      - "application/json"
       parameters:
       - name: municipio
         in: path
-        description: "Código do município"
+        description: Código do município
         required: true
-        type: integer
+        schema:
+          type: integer
       responses:
-        "200":
-          description: "OK"
-          schema:
-            type: object
-            properties:
-              unidadeEleitoralDTO: 
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
                 type: object
-                properties: 
-                  id: 
-                    type: string
-                    format: nullable
-                  sigla: 
-                    type: string
-                  nome: 
-                    type: string
-                  regiao: 
-                    type: string
-                    format: nullable
-                  cargos: 
-                    type: string
-                    format: nullable
-                  diretorios: 
-                    type: string
-                    format: nullable
-                  codigo: 
-                    type: string
-                  capital: 
-                    type: boolean
-                  estado: 
-                    type: string
-              cargos: 
-                type: array
-                items: 
-                  $ref: "#/definitions/Cargo"
-        "404":
-          description: "não encontrado"
+                properties:
+                  unidadeEleitoralDTO:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        format: nullable
+                      sigla:
+                        type: string
+                      nome:
+                        type: string
+                      regiao:
+                        type: string
+                        format: nullable
+                      cargos:
+                        type: string
+                        format: nullable
+                      diretorios:
+                        type: string
+                        format: nullable
+                      codigo:
+                        type: string
+                      capital:
+                        type: boolean
+                      estado:
+                        type: string
+                  cargos:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Cargo'
+        404:
+          description: não encontrado
+          content: {}
   /prestador/consulta/2030402020/2020/{municipio}/{cargo}/90/90/{candidato}:
     get:
       tags:
-      - "eleicoes2020"
+      - eleicoes2020
       summary: Prestador
-      description: "Informações sobre o prestador de contas"
+      description: Informações sobre o prestador de contas
       operationId: consultaPrestador
-      produces:
-      - "application/json"
       parameters:
       - name: municipio
         in: path
-        description: "Código do município"
+        description: Código do município
         required: true
-        type: integer
+        schema:
+          type: integer
       - name: cargo
         in: path
-        description: "Código do cargo"
+        description: Código do cargo
         required: true
-        type: integer
+        schema:
+          type: integer
       - name: candidato
         in: path
-        description: "Código do candidato"
+        description: Código do candidato
         required: true
-        type: integer
-        format: int64
+        schema:
+          type: integer
+          format: int64
       responses:
-        "200":
-          description: "OK"
-          schema:
-            type: object
-            properties:
-              idEleicao: 
-                type: integer
-                format: int32
-              ano: 
-                type: integer
-                format: int32
-              sgUe: 
-                type: string
-              sgUeSuperior: 
-                type: string
-              nmUe: 
-                type: string
-              nrPartido: 
-                type: integer
-                format: int32
-              nomePartido: 
-                type: string
-              siglaPartido: 
-                type: string
-              siglaPartidoSemEspaco: 
-                type: string
-              nrCandidato: 
-                type: integer
-                format: int32
-              idCandidato: 
-                type: string
-              nrProcessoPje: 
-                type: string
-              cnpj: 
-                type: string
-              idOrgao: 
-                type: string
-                format: nullable
-              idPrestador: 
-                type: string
-              idPrestadorVice: 
-                type: string
-              idUltimaEntrega: 
-                type: string
-              numeroDeControleEntrega: 
-                type: string
-              dataUltimaAtualizacaoContas: 
-                type: string
-              entregaAtual: 
-                type: string
-                format: nullable
-              dadosConsolidados: 
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
                 type: object
-                properties: 
-                  totalRecebido: 
+                properties:
+                  idEleicao:
                     type: integer
                     format: int32
-                  qtdRecebido: 
+                  ano:
                     type: integer
                     format: int32
-                  percentualRecebido: 
+                  sgUe:
+                    type: string
+                  sgUeSuperior:
+                    type: string
+                  nmUe:
+                    type: string
+                  nrPartido:
+                    type: integer
+                    format: int32
+                  nomePartido:
+                    type: string
+                  siglaPartido:
+                    type: string
+                  siglaPartidoSemEspaco:
+                    type: string
+                  nrCandidato:
+                    type: integer
+                    format: int32
+                  idCandidato:
+                    type: string
+                  nrProcessoPje:
+                    type: string
+                  cnpj:
+                    type: string
+                  idOrgao:
                     type: string
                     format: nullable
-                  totalFinanceiro: 
-                    type: integer
-                    format: int32
-                  qtdFinanceiro: 
-                    type: integer
-                    format: int32
-                  percentualFinanceiro: 
-                    type: integer
-                    format: int32
-                  totalEstimados: 
-                    type: integer
-                    format: int32
-                  qtdEstimados: 
-                    type: integer
-                    format: int32
-                  percentualEstimados: 
-                    type: integer
-                    format: int32
-                  totalReceitaPF: 
-                    type: integer
-                    format: int32
-                  qtdReceitaPF: 
-                    type: integer
-                    format: int32
-                  percentualReceitaPF: 
-                    type: integer
-                    format: int32
-                  totalReceitaPJ: 
-                    type: integer
-                    format: int32
-                  qtdReceitaPJ: 
-                    type: integer
-                    format: int32
-                  percentualReceitaPJ: 
-                    type: integer
-                    format: int32
-                  totalPartidos: 
-                    type: integer
-                    format: int32
-                  qtdPartidos: 
-                    type: integer
-                    format: int32
-                  percentualPartidos: 
-                    type: integer
-                    format: int32
-                  totalInternet: 
-                    type: integer
-                    format: int32
-                  qtdInternet: 
-                    type: integer
-                    format: int32
-                  percentualInternet: 
-                    type: integer
-                    format: int32
-                  totalRoni: 
-                    type: integer
-                    format: int32
-                  qtdRoni: 
-                    type: integer
-                    format: int32
-                  percentualRoni: 
-                    type: integer
-                    format: int32
-                  totalProprios: 
-                    type: integer
-                    format: int32
-                  qtdProprios: 
-                    type: integer
-                    format: int32
-                  percentualProprios: 
-                    type: integer
-                    format: int32
-                  totalReceitaOutCand: 
-                    type: integer
-                    format: int32
-                  qtdReceitaOutCand: 
-                    type: integer
-                    format: int32
-                  percentualReceitaOutCand: 
-                    type: integer
-                    format: int32
-                  totalDoacaoFcc: 
-                    type: integer
-                    format: int32
-                  qtdDoacaoFcc: 
-                    type: integer
-                    format: int32
-                  percentualDoacaoFcc: 
-                    type: integer
-                    format: int32
-                  sqPrestadorConta: 
+                  idPrestador:
+                    type: string
+                  idPrestadorVice:
+                    type: string
+                  idUltimaEntrega:
+                    type: string
+                  numeroDeControleEntrega:
+                    type: string
+                  dataUltimaAtualizacaoContas:
+                    type: string
+                  entregaAtual:
                     type: string
                     format: nullable
-                  sqEntregaPrestacao: 
+                  dadosConsolidados:
+                    type: object
+                    properties:
+                      totalRecebido:
+                        type: integer
+                        format: int32
+                      qtdRecebido:
+                        type: integer
+                        format: int32
+                      percentualRecebido:
+                        type: string
+                        format: nullable
+                      totalFinanceiro:
+                        type: integer
+                        format: int32
+                      qtdFinanceiro:
+                        type: integer
+                        format: int32
+                      percentualFinanceiro:
+                        type: integer
+                        format: int32
+                      totalEstimados:
+                        type: integer
+                        format: int32
+                      qtdEstimados:
+                        type: integer
+                        format: int32
+                      percentualEstimados:
+                        type: integer
+                        format: int32
+                      totalReceitaPF:
+                        type: integer
+                        format: int32
+                      qtdReceitaPF:
+                        type: integer
+                        format: int32
+                      percentualReceitaPF:
+                        type: integer
+                        format: int32
+                      totalReceitaPJ:
+                        type: integer
+                        format: int32
+                      qtdReceitaPJ:
+                        type: integer
+                        format: int32
+                      percentualReceitaPJ:
+                        type: integer
+                        format: int32
+                      totalPartidos:
+                        type: integer
+                        format: int32
+                      qtdPartidos:
+                        type: integer
+                        format: int32
+                      percentualPartidos:
+                        type: integer
+                        format: int32
+                      totalInternet:
+                        type: integer
+                        format: int32
+                      qtdInternet:
+                        type: integer
+                        format: int32
+                      percentualInternet:
+                        type: integer
+                        format: int32
+                      totalRoni:
+                        type: integer
+                        format: int32
+                      qtdRoni:
+                        type: integer
+                        format: int32
+                      percentualRoni:
+                        type: integer
+                        format: int32
+                      totalProprios:
+                        type: integer
+                        format: int32
+                      qtdProprios:
+                        type: integer
+                        format: int32
+                      percentualProprios:
+                        type: integer
+                        format: int32
+                      totalReceitaOutCand:
+                        type: integer
+                        format: int32
+                      qtdReceitaOutCand:
+                        type: integer
+                        format: int32
+                      percentualReceitaOutCand:
+                        type: integer
+                        format: int32
+                      totalDoacaoFcc:
+                        type: integer
+                        format: int32
+                      qtdDoacaoFcc:
+                        type: integer
+                        format: int32
+                      percentualDoacaoFcc:
+                        type: integer
+                        format: int32
+                      sqPrestadorConta:
+                        type: string
+                        format: nullable
+                      sqEntregaPrestacao:
+                        type: string
+                        format: nullable
+                      graphQtdReceitaFin:
+                        type: integer
+                        format: int32
+                      graphVrReceitaFin:
+                        type: integer
+                        format: int32
+                      graphQtdReceitaFinFundo:
+                        type: integer
+                        format: int32
+                      graphVrReceitaFinFundo:
+                        type: integer
+                        format: int32
+                      graphPercentReceitaFinFundo:
+                        type: integer
+                        format: int32
+                      graphQtdReceitaFinOutros:
+                        type: integer
+                        format: int32
+                      graphVrReceitaFinOutros:
+                        type: integer
+                        format: int32
+                      graphPercentFinOutros:
+                        type: integer
+                        format: int32
+                      graphQtdReceitaFinFefc:
+                        type: integer
+                        format: int32
+                      graphVrReceitaFinFefc:
+                        type: integer
+                        format: int32
+                      graphPercentFinFefc:
+                        type: integer
+                        format: int32
+                  historicoEntregas:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        dataEntrega:
+                          type: string
+                        tipo:
+                          type: string
+                        retificadora:
+                          type: string
+                        numeroControle:
+                          type: string
+                        idEntrega:
+                          type: string
+                        isCompare:
+                          type: boolean
+                  despesas:
+                    type: object
+                    properties:
+                      limiteDeGasto1T:
+                        type: number
+                      limiteDeGasto2T:
+                        type: integer
+                        format: int32
+                      valorLimiteDeGastos:
+                        type: number
+                      totalDespesasContratadas:
+                        type: integer
+                        format: int32
+                      totalDespesasPagas:
+                        type: integer
+                        format: int32
+                      doacoesOutrosCandidatosPartigos:
+                        type: integer
+                        format: int32
+                      fundosPartidarios:
+                        type: integer
+                        format: int32
+                      fundoEspecial:
+                        type: integer
+                        format: int32
+                      outrosRecursos:
+                        type: integer
+                        format: int32
+                      financeiras:
+                        type: integer
+                        format: int32
+                      estimaveis:
+                        type: integer
+                        format: int32
+                  haveExtratos:
+                    type: boolean
+                  haveNfes:
+                    type: boolean
+                  concentracaoDespesas:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        dsDRD:
+                          type: string
+                        qtdeDespesas:
+                          type: string
+                        valor:
+                          type: integer
+                          format: int32
+                  rankingDoadores:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        cpfCnpj:
+                          type: string
+                        nome:
+                          type: string
+                        qntd:
+                          type: string
+                        valor:
+                          type: integer
+                          format: int32
+                        stFinanciamentoColetivo:
+                          type: boolean
+                  rankingFornecedores:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        cpfCnpj:
+                          type: string
+                        nome:
+                          type: string
+                        qntd:
+                          type: string
+                        valor:
+                          type: integer
+                          format: int32
+                        stFinanciamentoColetivo:
+                          type: string
+                          format: nullable
+                  contasBancarias:
+                    type: array
+                    items:
+                      type: object
+                      properties: {}
+                  receitaIndividual:
                     type: string
                     format: nullable
-                  graphQtdReceitaFin: 
-                    type: integer
-                    format: int32
-                  graphVrReceitaFin: 
-                    type: integer
-                    format: int32
-                  graphQtdReceitaFinFundo: 
-                    type: integer
-                    format: int32
-                  graphVrReceitaFinFundo: 
-                    type: integer
-                    format: int32
-                  graphPercentReceitaFinFundo: 
-                    type: integer
-                    format: int32
-                  graphQtdReceitaFinOutros: 
-                    type: integer
-                    format: int32
-                  graphVrReceitaFinOutros: 
-                    type: integer
-                    format: int32
-                  graphPercentFinOutros: 
-                    type: integer
-                    format: int32
-                  graphQtdReceitaFinFefc: 
-                    type: integer
-                    format: int32
-                  graphVrReceitaFinFefc: 
-                    type: integer
-                    format: int32
-                  graphPercentFinFefc: 
-                    type: integer
-                    format: int32
-              historicoEntregas: 
-                type: array
-                items: 
-                  type: object
-                  properties: 
-                    dataEntrega: 
-                      type: string
-                    tipo: 
-                      type: string
-                    retificadora: 
-                      type: string
-                    numeroControle: 
-                      type: string
-                    idEntrega: 
-                      type: string
-                    isCompare: 
-                      type: boolean
-              despesas: 
-                type: object
-                properties: 
-                  limiteDeGasto1T: 
-                    type: number
-                  limiteDeGasto2T: 
-                    type: integer
-                    format: int32
-                  valorLimiteDeGastos: 
-                    type: number
-                  totalDespesasContratadas: 
-                    type: integer
-                    format: int32
-                  totalDespesasPagas: 
-                    type: integer
-                    format: int32
-                  doacoesOutrosCandidatosPartigos: 
-                    type: integer
-                    format: int32
-                  fundosPartidarios: 
-                    type: integer
-                    format: int32
-                  fundoEspecial: 
-                    type: integer
-                    format: int32
-                  outrosRecursos: 
-                    type: integer
-                    format: int32
-                  financeiras: 
-                    type: integer
-                    format: int32
-                  estimaveis: 
-                    type: integer
-                    format: int32
-              haveExtratos: 
-                type: boolean
-              haveNfes: 
-                type: boolean
-              concentracaoDespesas: 
-                type: array
-                items: 
-                  type: object
-                  properties: 
-                    dsDRD: 
-                      type: string
-                    qtdeDespesas: 
-                      type: string
-                    valor: 
-                      type: integer
-                      format: int32
-              rankingDoadores: 
-                type: array
-                items: 
-                  type: object
-                  properties: 
-                    cpfCnpj: 
-                      type: string
-                    nome: 
-                      type: string
-                    qntd: 
-                      type: string
-                    valor: 
-                      type: integer
-                      format: int32
-                    stFinanciamentoColetivo: 
-                      type: boolean
-              rankingFornecedores: 
-                type: array
-                items: 
-                  type: object
-                  properties: 
-                    cpfCnpj: 
-                      type: string
-                    nome: 
-                      type: string
-                    qntd: 
-                      type: string
-                    valor: 
-                      type: integer
-                      format: int32
-                    stFinanciamentoColetivo: 
-                      type: string
-                      format: nullable
-              contasBancarias: 
-                type: array
-                items: 
-                  type: object
-              receitaIndividual: 
-                type: string
-                format: nullable
-              qualificacoes: 
-                type: array
-                items: 
-                  type: object
-                  properties: 
-                    membro: 
-                      type: string
-                    codigoFuncao: 
-                      type: integer
-                      format: int32
-                    funcao: 
-                      type: string
-                    nrRegistroConselho: 
-                      type: string
-                      format: nullable
-                    dtGestaoInicio: 
-                      type: integer
-                      format: int64
-                    dtGestaoFim: 
-                      type: integer
-                      format: int64
-              dividaCampanha: 
-                type: string
-                format: nullable
-              sobraFinanceira: 
-                type: string
-                format: nullable
-              sobraFinanceiraFP: 
-                type: string
-                format: nullable
-              sobraFinanceiraOR: 
-                type: string
-                format: nullable
-              sobraFinanceiraFEFC: 
-                type: string
-                format: nullable
-              sobraEstimavel: 
-                type: string
-                format: nullable            
-        "404":
-          description: "não encontrado"
+                  qualificacoes:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        membro:
+                          type: string
+                        codigoFuncao:
+                          type: integer
+                          format: int32
+                        funcao:
+                          type: string
+                        nrRegistroConselho:
+                          type: string
+                          format: nullable
+                        dtGestaoInicio:
+                          type: integer
+                          format: int64
+                        dtGestaoFim:
+                          type: integer
+                          format: int64
+                  dividaCampanha:
+                    type: string
+                    format: nullable
+                  sobraFinanceira:
+                    type: string
+                    format: nullable
+                  sobraFinanceiraFP:
+                    type: string
+                    format: nullable
+                  sobraFinanceiraOR:
+                    type: string
+                    format: nullable
+                  sobraFinanceiraFEFC:
+                    type: string
+                    format: nullable
+                  sobraEstimavel:
+                    type: string
+                    format: nullable
+        404:
+          description: não encontrado
+          content: {}
   /candidatura/listar/2020/{municipio}/2030402020/{cargo}/candidatos:
     get:
       tags:
       - eleicoes2020
-      summary: "Candidatos no município"
-      description: "Lista de todos os candidatos nas eleições de 2020 no município especificado"
-      operationId: "listaCandidatosPorMunicipio"
-      produces:
-      - "application/json"
+      summary: Candidatos no município
+      description: Lista de todos os candidatos nas eleições de 2020 no município
+        especificado
+      operationId: listaCandidatosPorMunicipio
       parameters:
       - name: municipio
         in: path
-        description: "Código do município"
+        description: Código do município
         required: true
-        type: integer
+        schema:
+          type: integer
       - name: cargo
         in: path
-        description: "Código do cargo"
+        description: Código do cargo
         required: true
-        type: integer
+        schema:
+          type: integer
       responses:
-        "200":
-          description: "OK"
-          schema:
-            type: object
-            properties:
-              unidadeEleitoral:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
                 type: object
-              cargo:
-                type: object
-              candidatos:
-                type: array
-                items:
-                  $ref: "#/definitions/Candidato"
-        "404":
-          description: "não encontrado"
+                properties:
+                  unidadeEleitoral:
+                    type: object
+                    properties: {}
+                  cargo:
+                    type: object
+                    properties: {}
+                  candidatos:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Candidato'
+        404:
+          description: não encontrado
+          content: {}
   /candidatura/buscar/2020/{municipio}/2030402020/candidato/{candidato}:
     get:
       tags:
-      - "eleicoes2020"
+      - eleicoes2020
       summary: Candidato
-      description: "Informações sobre o candidato"
+      description: Informações sobre o candidato
       operationId: consultaCandidato
-      produces:
-      - "application/json"
       parameters:
       - name: municipio
         in: path
-        description: "Código do município"
+        description: Código do município
         required: true
-        type: integer
+        schema:
+          type: integer
       - name: candidato
         in: path
-        description: "Código do candidato"
+        description: Código do candidato
         required: true
-        type: integer
-        format: int64
+        schema:
+          type: integer
+          format: int64
       responses:
-        "200":
-          description: "OK"
-          schema:
-            $ref: "#/definitions/Candidato" 
-definitions:
-  Candidato:
-    type: "object"
-    properties:
-      id: 
-        type: integer
-        format: int64
-      nomeUrna: 
-        type: string
-      numero: 
-        type: integer
-        format: int32
-      idCandidatoSuperior: 
-        type: integer
-        format: int32
-      nomeCompleto: 
-        type: string
-      descricaoSexo: 
-        type: string
-        format: nullable
-      dataDeNascimento: 
-        type: integer
-        format: int64
-      tituloEleitor: 
-        type: string
-        format: nullable
-      cpf: 
-        type: string
-        format: nullable
-      descricaoEstadoCivil: 
-        type: string
-        format: nullable
-      descricaoCorRaca: 
-        type: string
-        format: nullable
-      descricaoSituacao: 
-        type: string
-      nacionalidade: 
-        type: string
-        format: nullable
-      grauInstrucao: 
-        type: string
-        format: nullable
-      ocupacao: 
-        type: string
-        format: nullable
-      gastoCampanha1T: 
-        type: number
-        format: nullable
-      gastoCampanha2T: 
-        type: number
-        format: nullable
-      sgUfNascimento: 
-        type: string
-        format: nullable
-      nomeMunicipioNascimento: 
-        type: string
-        format: nullable
-      localCandidatura: 
-        type: string
-        format: nullable
-      ufCandidatura: 
-        type: string
-        format: nullable
-      ufSuperiorCandidatura: 
-        type: string
-        format: nullable
-      dataUltimaAtualizacao: 
-        type: integer
-        format: int64
-      fotoUrl: 
-        type: string
-        format: nullable
-      fotoDataUltimaAtualizacao: 
-        type: string
-        format: nullable
-      descricaoTotalizacao: 
-        type: string
-      nomeColigacao: 
-        type: string
-      composicaoColigacao: 
-        type: string
-        format: nullable
-      numeroProcessoDrap: 
-        type: string
-        format: nullable
-      numeroProcessoDrapEncrypt: 
-        type: string
-        format: nullable
-      numeroProcesso: 
-        type: string
-        format: nullable
-      numeroProcessoEncrypt: 
-        type: string
-        format: nullable
-      numeroProcessoPrestContas: 
-        type: string
-        format: nullable
-      numeroProcessoPrestContasEncrypt: 
-        type: string
-        format: nullable
-      numeroProtocolo: 
-        type: string
-        format: nullable
-      cargo: 
-        type: object
-        $ref: "#/definitions/Cargo"
-      bens: 
-        type: array
-        format: nullable
-        items: 
-          type: object
-          properties: 
-            ordem: 
-              type: integer
-              format: int32
-            descricao: 
-              type: string
-            descricaoDeTipoDeBem: 
-              type: string
-            valor: 
-              type: number
-            dataUltimaAtualizacao: 
-              type: integer
-              format: int64
-      totalDeBens: 
-        type: number
-        format: nullable
-      vices: 
-        type: array
-        format: nullable
-        items: 
-          type: object
-          properties: 
-            nomeColigacao: 
-              type: string
-              format: nullable
-            composicaoColigacao: 
-              type: string
-              format: nullable
-            stRegistro: 
-              type: string
-              format: nullable
-            situacaoCandidato: 
-              type: string
-              format: nullable
-            urlFoto: 
-              type: string
-            sq_CANDIDATO: 
-              type: integer
-              format: int64
-            sq_CANDIDATO_SUPERIOR: 
-              type: string
-              format: nullable
-            sq_ELEICAO: 
-              type: integer
-              format: int32
-            sg_UE: 
-              type: string
-            nr_CANDIDATO: 
-              type: string
-            nm_URNA: 
-              type: string
-            nm_CANDIDATO: 
-              type: string
-            dt_ULTIMA_ATUALIZACAO: 
-              type: integer
-              format: int64
-            ds_CARGO: 
-              type: string
-              format: nullable
-            nm_PARTIDO: 
-              type: string
-            sg_PARTIDO: 
-              type: string
-      partido: 
-        type: object
-        properties: 
-          numero: 
-            type: integer
-            format: int32
-          sigla: 
-            type: string
-          nome: 
-            type: string
-            format: nullable
-      eleicao: 
-        type: object
-        properties: 
-          id: 
-            type: integer
-            format: int32
-          siglaUF: 
-            type: string
-            format: nullable
-          localidadeSgUe: 
-            type: string
-            format: nullable
-          ano: 
-            type: integer
-            format: int32
-          codigo: 
-            type: string
-            format: nullable
-          nomeEleicao: 
-            type: string
-            format: nullable
-          tipoEleicao: 
-            type: string
-            format: nullable
-          turno: 
-            type: string
-            format: nullable
-          tipoAbrangencia: 
-            type: string
-            format: nullable
-          dataEleicao: 
-            type: string
-            format: nullable
-          codSituacaoEleicao: 
-            type: string
-            format: nullable
-          descricaoSituacaoEleicao: 
-            type: string
-            format: nullable
-          descricaoEleicao: 
-            type: string
-      emails: 
-        type: array
-        format: nullable
-        items: 
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Candidato'
+components:
+  schemas:
+    Candidato:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        nomeUrna:
           type: string
-      sites: 
-        type: array
-        format: nullable
-        items: 
+        numero:
+          type: integer
+          format: int32
+        idCandidatoSuperior:
+          type: integer
+          format: int32
+        nomeCompleto:
           type: string
-      arquivos: 
-        type: array
-        format: nullable
-        items: 
+        descricaoSexo:
+          type: string
+          format: nullable
+        dataDeNascimento:
+          type: integer
+          format: int64
+        tituloEleitor:
+          type: string
+          format: nullable
+        cpf:
+          type: string
+          format: nullable
+        descricaoEstadoCivil:
+          type: string
+          format: nullable
+        descricaoCorRaca:
+          type: string
+          format: nullable
+        descricaoSituacao:
+          type: string
+        nacionalidade:
+          type: string
+          format: nullable
+        grauInstrucao:
+          type: string
+          format: nullable
+        ocupacao:
+          type: string
+          format: nullable
+        gastoCampanha1T:
+          type: number
+          format: nullable
+        gastoCampanha2T:
+          type: number
+          format: nullable
+        sgUfNascimento:
+          type: string
+          format: nullable
+        nomeMunicipioNascimento:
+          type: string
+          format: nullable
+        localCandidatura:
+          type: string
+          format: nullable
+        ufCandidatura:
+          type: string
+          format: nullable
+        ufSuperiorCandidatura:
+          type: string
+          format: nullable
+        dataUltimaAtualizacao:
+          type: integer
+          format: int64
+        fotoUrl:
+          type: string
+          format: nullable
+        fotoDataUltimaAtualizacao:
+          type: string
+          format: nullable
+        descricaoTotalizacao:
+          type: string
+        nomeColigacao:
+          type: string
+        composicaoColigacao:
+          type: string
+          format: nullable
+        numeroProcessoDrap:
+          type: string
+          format: nullable
+        numeroProcessoDrapEncrypt:
+          type: string
+          format: nullable
+        numeroProcesso:
+          type: string
+          format: nullable
+        numeroProcessoEncrypt:
+          type: string
+          format: nullable
+        numeroProcessoPrestContas:
+          type: string
+          format: nullable
+        numeroProcessoPrestContasEncrypt:
+          type: string
+          format: nullable
+        numeroProtocolo:
+          type: string
+          format: nullable
+        cargo:
+          $ref: '#/components/schemas/Cargo'
+        bens:
+          type: array
+          items:
+            type: object
+            properties:
+              ordem:
+                type: integer
+                format: int32
+              descricao:
+                type: string
+              descricaoDeTipoDeBem:
+                type: string
+              valor:
+                type: number
+              dataUltimaAtualizacao:
+                type: integer
+                format: int64
+        totalDeBens:
+          type: number
+          format: nullable
+        vices:
+          type: array
+          items:
+            type: object
+            properties:
+              nomeColigacao:
+                type: string
+                format: nullable
+              composicaoColigacao:
+                type: string
+                format: nullable
+              stRegistro:
+                type: string
+                format: nullable
+              situacaoCandidato:
+                type: string
+                format: nullable
+              urlFoto:
+                type: string
+              sq_CANDIDATO:
+                type: integer
+                format: int64
+              sq_CANDIDATO_SUPERIOR:
+                type: string
+                format: nullable
+              sq_ELEICAO:
+                type: integer
+                format: int32
+              sg_UE:
+                type: string
+              nr_CANDIDATO:
+                type: string
+              nm_URNA:
+                type: string
+              nm_CANDIDATO:
+                type: string
+              dt_ULTIMA_ATUALIZACAO:
+                type: integer
+                format: int64
+              ds_CARGO:
+                type: string
+                format: nullable
+              nm_PARTIDO:
+                type: string
+              sg_PARTIDO:
+                type: string
+        partido:
           type: object
-          properties: 
-            idArquivo: 
-              type: integer
-              format: int64
-            nome: 
-              type: string
-            url: 
-              type: string
-            tipo: 
-              type: string
-            codTipo: 
-              type: string
-            fullFilePath: 
-              type: string
-              format: nullable
-            fileInputStream: 
-              type: string
-              format: nullable
-            fileByteArray: 
-              type: string
-              format: nullable
-      eleicoesAnteriores: 
-        type: array
-        format: nullable
-        items: 
-          type: object
-          properties: 
-            nrAno: 
+          properties:
+            numero:
               type: integer
               format: int32
-            id: 
+            sigla:
               type: string
-            nomeUrna: 
+            nome:
               type: string
-            nomeCandidato: 
+              format: nullable
+        eleicao:
+          type: object
+          properties:
+            id:
+              type: integer
+              format: int32
+            siglaUF:
               type: string
-            idEleicao: 
+              format: nullable
+            localidadeSgUe:
               type: string
-            sgUe: 
+              format: nullable
+            ano:
+              type: integer
+              format: int32
+            codigo:
               type: string
-            local: 
+              format: nullable
+            nomeEleicao:
               type: string
-            cargo: 
+              format: nullable
+            tipoEleicao:
               type: string
-            partido: 
+              format: nullable
+            turno:
               type: string
-            situacaoTotalizacao: 
+              format: nullable
+            tipoAbrangencia:
               type: string
-            txLink: 
+              format: nullable
+            dataEleicao:
               type: string
-      substituto: 
-        type: string
-        format: nullable
-      motivos: 
-        type: string
-        format: nullable
-      codigoSituacaoCandidato: 
-        type: integer
-        format: int32
-      descricaoSituacaoCandidato: 
-        type: string
-        format: nullable
-      isCandidatoInapto: 
-        type: boolean
-        format: nullable
-      codigoSituacaoPartido: 
-        type: string
-        format: nullable
-      descricaoSituacaoPartido: 
-        type: string
-        format: nullable
-      cnpjcampanha: 
-        type: string
-        format: nullable
-      descricaoNaturalidade: 
-        type: string
-      gastoCampanha: 
-        type: integer
-        format: int32
-      st_SUBSTITUIDO: 
-        type: boolean
-        format: nullable
-      st_MOTIVO_FICHA_LIMPA: 
-        type: boolean
-        format: nullable
-      st_MOTIVO_ABUSO_PODER: 
-        type: boolean
-        format: nullable
-      st_MOTIVO_COMPRA_VOTO: 
-        type: boolean
-        format: nullable
-      st_MOTIVO_CONDUTA_VEDADA: 
-        type: boolean
-        format: nullable
-      st_MOTIVO_GASTO_ILICITO: 
-        type: boolean
-        format: nullable
-      ds_MOTIVO_OUTROS: 
-        type: string
-        format: nullable
-      st_MOTIVO_AUSENCIA_REQUISITO: 
-        type: boolean
-        format: nullable
-      st_MOTIVO_IND_PARTIDO: 
-        type: boolean
-        format: nullable
-      st_DIVULGA: 
-        type: boolean
-        format: nullable
-      st_DIVULGA_BENS: 
-        type: boolean
-        format: nullable
-      st_REELEICAO: 
-        type: boolean
-      st_DIVULGA_ARQUIVOS: 
-        type: boolean
-        format: nullable
-  Cargo:
-    type: object
-    properties:
-      codigo: 
-        type: integer
-        format: int32
-      sigla: 
-        type: string
-        format: nullable
-      nome: 
-        type: string
-      codSuperior: 
-        type: integer
-        format: int32
-      titular: 
-        type: boolean
-      contagem: 
-        type: integer
-        format: int32
-externalDocs:
-  description: "Repositório de dados eleitorais"
-  url: "https://www.tse.jus.br/eleicoes/estatisticas/repositorio-de-dados-eleitorais-1/repositorio-de-dados-eleitorais"
+              format: nullable
+            codSituacaoEleicao:
+              type: string
+              format: nullable
+            descricaoSituacaoEleicao:
+              type: string
+              format: nullable
+            descricaoEleicao:
+              type: string
+        emails:
+          type: array
+          items:
+            type: string
+        sites:
+          type: array
+          items:
+            type: string
+        arquivos:
+          type: array
+          items:
+            type: object
+            properties:
+              idArquivo:
+                type: integer
+                format: int64
+              nome:
+                type: string
+              url:
+                type: string
+              tipo:
+                type: string
+              codTipo:
+                type: string
+              fullFilePath:
+                type: string
+                format: nullable
+              fileInputStream:
+                type: string
+                format: nullable
+              fileByteArray:
+                type: string
+                format: nullable
+        eleicoesAnteriores:
+          type: array
+          items:
+            type: object
+            properties:
+              nrAno:
+                type: integer
+                format: int32
+              id:
+                type: string
+              nomeUrna:
+                type: string
+              nomeCandidato:
+                type: string
+              idEleicao:
+                type: string
+              sgUe:
+                type: string
+              local:
+                type: string
+              cargo:
+                type: string
+              partido:
+                type: string
+              situacaoTotalizacao:
+                type: string
+              txLink:
+                type: string
+        substituto:
+          type: string
+          format: nullable
+        motivos:
+          type: string
+          format: nullable
+        codigoSituacaoCandidato:
+          type: integer
+          format: int32
+        descricaoSituacaoCandidato:
+          type: string
+          format: nullable
+        isCandidatoInapto:
+          type: boolean
+          format: nullable
+        codigoSituacaoPartido:
+          type: string
+          format: nullable
+        descricaoSituacaoPartido:
+          type: string
+          format: nullable
+        cnpjcampanha:
+          type: string
+          format: nullable
+        descricaoNaturalidade:
+          type: string
+        gastoCampanha:
+          type: integer
+          format: int32
+        st_SUBSTITUIDO:
+          type: boolean
+          format: nullable
+        st_MOTIVO_FICHA_LIMPA:
+          type: boolean
+          format: nullable
+        st_MOTIVO_ABUSO_PODER:
+          type: boolean
+          format: nullable
+        st_MOTIVO_COMPRA_VOTO:
+          type: boolean
+          format: nullable
+        st_MOTIVO_CONDUTA_VEDADA:
+          type: boolean
+          format: nullable
+        st_MOTIVO_GASTO_ILICITO:
+          type: boolean
+          format: nullable
+        ds_MOTIVO_OUTROS:
+          type: string
+          format: nullable
+        st_MOTIVO_AUSENCIA_REQUISITO:
+          type: boolean
+          format: nullable
+        st_MOTIVO_IND_PARTIDO:
+          type: boolean
+          format: nullable
+        st_DIVULGA:
+          type: boolean
+          format: nullable
+        st_DIVULGA_BENS:
+          type: boolean
+          format: nullable
+        st_REELEICAO:
+          type: boolean
+        st_DIVULGA_ARQUIVOS:
+          type: boolean
+          format: nullable
+    Cargo:
+      type: object
+      properties:
+        codigo:
+          type: integer
+          format: int32
+        sigla:
+          type: string
+          format: nullable
+        nome:
+          type: string
+        codSuperior:
+          type: integer
+          format: int32
+        titular:
+          type: boolean
+        contagem:
+          type: integer
+          format: int32
