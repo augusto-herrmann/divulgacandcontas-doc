@@ -45,11 +45,14 @@ cole-o em [editor.swagger.io](https://editor.swagger.io/). Será criada uma
 interface web para que você possa preencher os parâmetros e experimentar com
 as consultas.
 
-Todavia, a API do TSE possui dois problemas que impedirão as consultas de
+Todavia, a API do TSE possui um problema que impedirá as consultas de
 funcionar pelo navegador: a API não suporta
 *[Cross Origin Resource Sharing](https://pt.wikipedia.org/wiki/Cross-origin_resource_sharing)*
 (CORS), o que faz com que o navegador bloqueie chamadas à API a partir de
-outros domíníos (como o editor Swagger, por exemplo).
+outros domínios (como o editor Swagger, por exemplo). Aparece a seguinte
+mensagem de erro:
+
+> TypeError: NetworkError when attempting to fetch resource.
 
 Uma possível solução, para quem usa Firefox, é instalar a extensão
 [CORS Everywhere](https://addons.mozilla.org/en-US/firefox/addon/cors-everywhere/)
