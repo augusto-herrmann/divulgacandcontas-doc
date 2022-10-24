@@ -145,6 +145,34 @@ paths:
                 type: array
                 items:
                   type: integer
+  /eleicao/estados/{ano}/ano:
+    get:
+      tags:
+      - eleicoes-suplementares
+      summary: Estados com eleições suplementares
+      description: Lista de estados com eleições suplementares naquele ano
+      operationId: eleicoes_suplementares_estados
+      parameters:
+      - name: ano
+        in: path
+        description: Ano
+        required: true
+        schema:
+          type: integer
+        example: 2020
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  uf:
+                    type: string
+        404:
+          description: não encontrado
+          content: {}
   /eleicao/listar/municipios/{eleicao}/{municipio}/cargos:
     get:
       tags:
@@ -212,6 +240,40 @@ paths:
       summary: Eleições
       description: Lista eleições, por ano, disponível para consulta
       operationId: eleicoesOrdinarias
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Eleição"
+        404:
+          description: não encontrado
+          content: {}
+  /eleicao/suplementares/{ano}/{uf}:
+    get:
+      tags:
+      - eleicoes-suplementares
+      summary: Eleições suplementares
+      description: Lista de eleições suplementares no estado naquele ano
+      operationId: eleicoes_suplementares_estados
+      parameters:
+      - name: ano
+        in: path
+        description: Ano
+        required: true
+        schema:
+          type: integer
+        example: 2020
+      - name: uf
+        in: path
+        description: Sigla da unidade federativa
+        required: true
+        schema:
+          type: string
+        example: AL
       responses:
         200:
           description: OK
