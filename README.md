@@ -56,7 +56,8 @@ mensagem de erro:
 
 Uma possível solução, para quem usa Firefox, é instalar a extensão
 [CORS Everywhere](https://addons.mozilla.org/en-US/firefox/addon/cors-everywhere/)
-e configurar o "*activation whitelist*" para `/^https:\/\/editor.swagger.io/`.
+e configurar o "*activation whitelist*" para
+`/^https:\/\/editor(?:-next)?.swagger.io\//i`.
 Ative a extensão na aba do editor de Swagger para que as chamadas à API passem
 a funcionar no Firefox.
 
